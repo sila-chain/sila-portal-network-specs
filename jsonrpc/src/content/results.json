@@ -1,0 +1,267 @@
+{
+  "AddEnrResult": {
+    "name": "addEnrResult",
+    "description": "Returns boolean if the node record has been successfully saved.",
+    "schema": {
+      "type": "boolean"
+    }
+  },
+  "BeaconOptimisticStateRootResult": {
+    "name": "optimisticStateRootResult",
+    "description": "Returns the hex encoded optimistic beacon state root. If the beacon client is not synced, return the error.",
+    "schema": {
+      "title": "Hex encoded optimistic beacon state root",
+      "$ref": "#/components/schemas/bytes32"
+    }
+  },
+  "BeaconFinalizedStateRootResult": {
+    "name": "finalizedStateRootResult",
+    "description": "Returns the hex encoded finalized beacon state root. If the beacon client is not synced, return the error.",
+    "schema": {
+      "title": "Hex encoded finalized beacon state root",
+      "$ref": "#/components/schemas/bytes32"
+    }
+  },
+  "StoreResult": {
+    "name": "storeResult",
+    "description": "Returns \"true\" upon success",
+    "schema": {
+      "type": "boolean"
+    }
+  },
+  "DeleteEnrResult": {
+    "name": "deleteEnrResult",
+    "description": "Returns boolean upon successful deletion of the node record.",
+    "schema": {
+      "type": "boolean"
+    }
+  },
+  "FindContentResult": {
+    "name": "FindContentResult",
+    "description": "Returns either the requested content, received directly from the CONTENT message or transferred over uTP, or, in case the recipient does not have the content, a list of ENR records of nodes that are closer than the recipient is to the requested content.",
+    "schema": {
+      "title": "FindContentResult",
+      "type": "object",
+      "oneOf": [
+        {
+          "title": "ContentInfo",
+          "type": "object",
+          "required": [
+            "content",
+            "utpTransfer"
+          ],
+          "properties": {
+            "content": {
+              "title": "Requested content",
+              "description": "Encoded requested content",
+              "$ref": "#/components/schemas/hexString"
+            },
+            "utpTransfer": {
+              "description": "Indicates whether the content was transferred over a uTP connection or not.",
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "title": "ENRs",
+          "description": "List of ENR records of nodes that are closer than the recipient is to the requested content",
+          "type": "object",
+          "required": [
+            "enrs"
+          ],
+          "properties": {
+            "enrs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Enr"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "FindNodeResult": {
+    "name": "findNodeResult",
+    "description": "Returns nodes in a given distance",
+    "schema": {
+      "title": "NODES message",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Enr"
+      }
+    }
+  },
+  "GetEnrResult": {
+    "name": "getEnrResult",
+    "description": "Returns latest ENR associated with the given node ID.",
+    "schema": {
+      "title": "Sila node record",
+      "$ref": "#/components/schemas/Enr"
+    }
+  },
+  "LookupEnrResult": {
+    "name": "lookupEnrResult",
+    "description": "Returns ENR associated with the given node ID",
+    "schema": {
+      "title": "Sila node record",
+      "$ref": "#/components/schemas/Enr"
+    }
+  },
+  "OfferResult": {
+    "name": "offerResult",
+    "description": "Returns the accepted content keys bytelist upon successful content transmission or no transmission in case of empty bytelist receival. Return error on response or transmission errors.",
+    "schema": {
+      "title": "Encoded content keys bytelist",
+      "$ref": "#/components/schemas/hexString"
+    }
+  },
+  "PingResult": {
+    "name": "pingResult",
+    "description": "Returns PONG response",
+    "schema": {
+      "title": "PONG message",
+      "type": "object",
+      "required": [
+        "enrSeq",
+        "payloadType",
+        "payload"
+      ],
+      "properties": {
+        "enrSeq": {
+          "description": "ENR sequence number of sender",
+          "type": "number"
+        },
+        "payloadType": {
+            "description": "numeric identifier which tells clients how the payload field should be decoded",
+            "type": "number"
+        },
+        "payload": {
+            "description":  "The JSON encoded extension payload. These are examples of possible payloads, check the documentation for which payloads are support.",
+            "type": "object",
+            "oneOf": [
+                { "$ref": "#/components/schemas/ClientInfoAndCapabilities" },
+                { "$ref": "#/components/schemas/BasicRadius" },
+                { "$ref": "#/components/schemas/HistoryRadius" },
+                { "$ref": "#/components/schemas/UnknownPayload" }
+              ]
+        }
+      }
+    }
+  },
+  "RecursiveFindNodesResult": {
+    "name": "recursiveFindNodesResult",
+    "description": "Up to 16 ENRs of the closest nodes, sorted by distance.",
+    "schema": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Enr"
+      }
+    }
+  },
+  "RoutingTableInfoResult": {
+    "name": "routingTableInfoResult",
+    "description": "history network routing table information",
+    "required": true,
+    "schema": {
+      "title": "routingTableInfoResults",
+      "description": "Routing table details",
+      "type": "object",
+      "required": [
+        "localNodeId",
+        "buckets"
+      ],
+      "properties": {
+        "localNodeId": {
+          "title": "nodeId",
+          "description": "The key identifying the local peer that owns the routing table.",
+          "$ref": "#/components/schemas/bytes32"
+        },
+        "buckets": {
+          "title": "kBucketsTable",
+          "description": "Represents a Kademlia routing table.",
+          "$ref": "#/components/schemas/kBuckets"
+        }
+      }
+    }
+  },
+  "GetContentResult": {
+    "name": "GetContentResult",
+    "description": "Returns the hex encoded content value and utp transfer flag. If the content is not available, returns \"0x\"",
+    "schema": {
+      "type": "object",
+      "required": [
+        "content",
+        "utpTransfer"
+      ],
+      "properties": {
+        "content": {
+          "description": "Hex encoded content value",
+          "$ref": "#/components/schemas/hexString"
+        },
+        "utpTransfer": {
+          "description": "Indicates whether the content was transferred over a uTP connection or not.",
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "TraceGetContentResult": {
+    "name": "TraceGetContentResult",
+    "description": "Returns the hex encoded content value and trace data object. If the content is not available, returns \"0x\"",
+    "schema": {
+      "type": "object",
+      "required": [
+        "content",
+        "utpTransfer",
+        "trace"
+      ],
+      "properties": {
+        "content": {
+          "description": "Hex encoded content value",
+          "$ref": "#/components/schemas/hexString"
+        },
+        "utpTransfer": {
+          "description": "Indicates whether the content was transferred over a uTP connection or not.",
+          "type": "boolean"
+        },
+        "trace": {
+          "description": "Contains trace data for the request.",
+          "$ref": "#/components/schemas/traceResultObject"
+        }
+      }
+    }
+  },
+  "LocalContentResult": {
+    "name": "LocalContentResult",
+    "description": "Returns the hex encoded content value.",
+    "schema": {
+      "$ref": "#/components/schemas/hexString"
+    }
+  },
+  "PutContentResult": {
+    "name": "PutContentResult",
+    "description": "Returns the number of peers that the content was offered to and a flag indicating whether the content was stored locally or not.",
+    "schema": {
+      "type": "object",
+      "required": [
+        "peerCount",
+        "storedLocally"
+      ],
+      "properties": {
+        "storedLocally": {
+          "description": "Indicates whether the content was stored locally or not.",
+          "type": "boolean"
+        },
+        "peerCount": {
+          "description": "Indicates how many peers the content was offered to.",
+          "type": "number"
+        },
+        "acceptMetadata": {
+          "description": "Metadata which includes the count of each accept code received from peers when offering content.",
+          "$ref": "#/components/schemas/AcceptMetadata"
+        }
+      }
+    }
+  }
+}

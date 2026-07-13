@@ -1,0 +1,111 @@
+{
+  "ContentKey": {
+    "name": "contentKey",
+    "description": "The encoded Portal content key",
+    "required": true,
+    "schema": {
+      "$ref": "#/components/schemas/hexString"
+    }
+  },
+  "ContentValue": {
+    "name": "contentValue",
+    "description": "The encoded Portal content value",
+    "required": true,
+    "schema": {
+      "$ref": "#/components/schemas/hexString"
+    }
+  },
+  "ProtocolId": {
+    "name": "protocolId",
+    "required": true,
+    "description": "The protocol element of discv5 TALKREQ message-data",
+    "schema": {
+      "title": "protocol id",
+      "$ref": "#/components/schemas/hexString"
+    }
+  },
+   "TalkReqPayload": {
+    "name": "talkReqPayload",
+    "required": true,
+    "description": "The request element of discv5 TALKREQ message-data",
+    "schema": {
+      "$ref": "#/components/schemas/hexString"
+    }
+  },
+  "Distances": {
+    "name": "distances",
+    "required": true,
+    "schema": {
+      "title": "distance",
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    }
+  },
+  "ContentItems": {
+    "name": "content_items",
+    "required": true,
+    "schema": {
+      "title": "content_item",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ContentItem"
+      },
+      "minItems": 1,
+      "maxItems": 64
+    }
+  },   
+  "Enr": {
+    "name": "enr",
+    "required": true,
+    "schema": {
+      "title": "Sila node record",
+      "$ref": "#/components/schemas/Enr"
+    }
+  },
+  "EnrSeq": {
+    "name": "enrSeq",
+    "schema": {
+      "title": "The ENR sequence number",
+      "type": "number"
+    }
+  },
+  "NodeId": {
+    "name": "nodeId",
+    "required": true,
+    "schema": {
+      "title": "NodeId",
+      "$ref": "#/components/schemas/bytes32"
+    }
+  },
+  "DataRadius": {
+    "name": "dataRadius",
+    "description": "Data radius value",
+    "schema": {
+      "$ref": "#/components/schemas/DataRadius"
+    }
+  },
+  "PayloadType": {
+    "name": "payloadType",
+    "description": "The type of payload. If the payloadType is specified without a payload, the client will generate the default payload for that payloadType.",
+    "schema": {
+        "description": "Numeric identifier which tells clients how the payload field should be decoded",
+        "type": "number"
+    }
+  },
+  "Payload": {
+    "name": "payload",
+    "description": "The JSON encoded extension payload. Requires the payload_type to be specified.",
+    "schema": {
+        "description": "The JSON encoded extension payload.",
+        "type": "object",
+        "oneOf": [
+            { "$ref": "#/components/schemas/ClientInfoAndCapabilities" },
+            { "$ref": "#/components/schemas/BasicRadius" },
+            { "$ref": "#/components/schemas/HistoryRadius" },
+            { "$ref": "#/components/schemas/UnknownPayload" }
+        ]
+    }
+  }  
+}

@@ -1,0 +1,221 @@
+[
+  {
+    "name": "discv5_nodeInfo",
+    "summary": "Returns ENR and nodeId information of the local discv5 node.",
+    "params": [],
+    "result": {
+      "name": "nodeInfoResult",
+      "description": "Local node information",
+      "required": true,
+      "schema": {
+        "title": "nodeInfoResults",
+        "description": "ENR and NodeId of the local peer",
+        "type": "object",
+        "required": [
+          "enr",
+          "nodeId"
+        ],
+        "properties": {
+          "enr": {
+            "title": "nodeENR",
+            "description": "URL-safe base64 encoded \\\"text\\\" version of the ENR prefixed by \\\"enr:\\\".\"",
+            "$ref": "#/components/schemas/Enr"
+          },
+          "nodeId": {
+            "title": "nodeId",
+            "description": "Hex encoded `NodeId` of an ENR (a 32 byte identifier).",
+            "$ref": "#/components/schemas/bytes32"
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "discv5_updateNodeInfo",
+    "summary": "Add, update, or remove a key-value pair from the local node record",
+    "params": [
+      {
+        "name": "socketAddr",
+        "required": true,
+        "schema": {
+          "title": "ENR socket address",
+          "$ref": "#/components/schemas/socketAddr"
+        }
+      },
+      {
+        "name": "isTcp",
+        "description": "TCP or UDP socket",
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    ],
+    "result": {
+      "name": "nodeInfoResult",
+      "description": "Local node information",
+      "required": true,
+      "schema": {
+        "title": "nodeInfoResults",
+        "description": "ENR and NodeId of the local peer",
+        "type": "object",
+        "required": [
+          "enr",
+          "localNodeId"
+        ],
+        "properties": {
+          "enr": {
+            "title": "nodeENR",
+            "description": "URL-safe base64 encoded \\\"text\\\" version of the ENR prefixed by \\\"enr:\\\".\"",
+            "$ref": "#/components/schemas/Enr"
+          },
+          "localNodeId": {
+            "title": "nodeId",
+            "description": "Hex encoded `NodeId` of an ENR (a 32 byte identifier).",
+            "$ref": "#/components/schemas/bytes32"
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "discv5_routingTableInfo",
+    "summary": "Returns meta information about discv5 routing table.",
+    "params": [],
+    "result": {
+      "$ref": "#/components/contentDescriptors/RoutingTableInfoResult"
+    }
+  },
+  {
+    "name": "discv5_addEnr",
+    "summary": "Write an sila node record to the routing table.",
+    "params": [
+      {
+        "$ref": "#/components/contentDescriptors/Enr"
+      }
+    ],
+    "result": {
+      "$ref": "#/components/contentDescriptors/AddEnrResult"
+    }
+  },
+  {
+    "name": "discv5_getEnr",
+    "summary": "Fetch from the local node the latest ENR associated with the given NodeId",
+    "params": [
+      {
+        "$ref": "#/components/contentDescriptors/NodeId"
+      }
+    ],
+    "result": {
+      "$ref": "#/components/contentDescriptors/GetEnrResult"
+    }
+  },
+  {
+    "name": "discv5_deleteEnr",
+    "summary": "Delete a Node ID from the routing table",
+    "params": [
+      {
+        "$ref": "#/components/contentDescriptors/NodeId"
+      }
+    ],
+    "result": {
+      "$ref": "#/components/contentDescriptors/DeleteEnrResult"
+    }
+  },
+  {
+    "name": "discv5_lookupEnr",
+    "summary": "Fetch from the DHT the latest ENR associated with the given NodeId",
+    "params": [
+      {
+        "$ref": "#/components/contentDescriptors/NodeId"
+      }
+    ],
+    "result": {
+      "$ref": "#/components/contentDescriptors/LookupEnrResult"
+    }
+  },
+  {
+    "name": "discv5_ping",
+    "summary": "Send a PING message to the designated node and wait for a PONG response.",
+    "params": [
+      {
+        "$ref": "#/components/contentDescriptors/Enr"
+      }
+    ],
+    "result": {
+      "name": "pingResult",
+      "description": "Returns PONG response",
+      "schema": {
+        "title": "PONG message",
+        "type": "object",
+        "required": [
+          "enrSeq",
+          "recipientIP",
+          "recipientPort"
+        ],
+        "properties": {
+          "enrSeq": {
+            "description": "ENR sequence number of sender",
+            "type": "number"
+          },
+          "recipientIP": {
+            "description": "IP address of the intended recipient",
+            "$ref": "#/components/schemas/ipAddr"
+          },
+          "recipientPort": {
+            "description": "recipient UDP port",
+            "$ref": "#/components/schemas/udpPort"
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "discv5_findNode",
+    "summary": "Send a FINDNODE request for nodes that fall within the given set of distances, to the designated peer and wait for a response.",
+    "params": [
+      {
+        "$ref": "#/components/contentDescriptors/Enr"
+      },
+      {
+        "$ref": "#/components/contentDescriptors/Distances"
+      }
+    ],
+    "result": {
+      "$ref": "#/components/contentDescriptors/FindNodeResult"
+    }
+  },
+  {
+    "name": "discv5_talkReq",
+    "summary": "Send a TALKREQ request with a payload to a given peer and wait for response.",
+    "params": [
+      {
+        "$ref": "#/components/contentDescriptors/Enr"
+      },
+      {
+        "$ref": "#/components/contentDescriptors/ProtocolId"
+      },
+      {
+        "$ref": "#/components/contentDescriptors/TalkReqPayload"
+      }
+    ],
+    "result": {
+      "name": "talkResult",
+      "description": "Returns TALKRESP message as hex string",
+      "schema": {
+        "$ref": "#/components/schemas/hexString"
+      }
+    }
+  },
+  {
+    "name": "discv5_recursiveFindNodes",
+    "summary": "Look up ENRs closest to the given target",
+    "params": [
+      {
+        "$ref": "#/components/contentDescriptors/NodeId"
+      }
+    ],
+    "result": {
+      "$ref": "#/components/contentDescriptors/RecursiveFindNodesResult"
+    }
+  }
+]
