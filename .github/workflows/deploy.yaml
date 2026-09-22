@@ -3,7 +3,7 @@ name: Deploy JSON-RPC specification
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build-and-deploy:
