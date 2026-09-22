@@ -5,7 +5,7 @@ This document is the specification for the sub-protocol that supports on-demand 
 
 ## Overview
 
-The canonical transaction index network is a [Kademlia](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf) DHT that uses the [Portal Wire Protocol](../portal-wire-protocol.md) to establish an overlay network on top of the [Discovery v5](https://github.com/sila-chain/sila-devp2p/blob/master/discv5/discv5-wire.md) protocol.
+The canonical transaction index network is a [Kademlia](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf) DHT that uses the [Portal Wire Protocol](../portal-wire-protocol.md) to establish an overlay network on top of the [Discovery v5](https://github.com/sila-chain/sila-devp2p/blob/main/discv5/discv5-wire.md) protocol.
 
 The canonical transaction index consists of a mapping from transaction hash to the canonical block hash within which the transaction was included and the index of the transaction within the set of transactions executed within that block.
 

@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sila-chain/sila-sila-portal-network-specs.git"
+    "url": "git+https://github.com/sila-chain/sila-portal-network-specs.git"
   },
   "author": "Sila",
   "license": "CC0-1.0",
   "bugs": {
-    "url": "https://github.com/sila-chain/sila-sila-portal-network-specs/issues"
+    "url": "https://github.com/sila-chain/sila-portal-network-specs/issues"
   },
-  "homepage": "https://github.com/sila-chain/sila-sila-portal-network-specs#readme",
+  "homepage": "https://github.com/sila-chain/sila-portal-network-specs#readme",
   "dependencies": {
     "@open-rpc/schema-utils-js": "^1.15.0"
   }

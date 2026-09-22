@@ -4,4 +4,4 @@
 ## Beacon Chain Network
 The network described in this directory is intended to provide Beacon Chain data that also support beacon chain light clients.
 
-- Minimal light client [specs](https://github.com/sila-chain/consensus-specs/blob/dev/specs/altair/light-client/sync-protocol.md)
+- Minimal light client [specs](https://github.com/sila-chain/consensus-specs/blob/main/specs/altair/light-client/sync-protocol.md)

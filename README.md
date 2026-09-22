@@ -17,12 +17,12 @@ The Portal Network is focused on delivering reliable, lightweight, and decentral
 
 ### Prior Work on the "Light Sila Subprotocol" (LES)
 
-The term "light client" has historically referred to a client of the existing [SilaDevP2P](https://github.com/sila-chain/sila-devp2p/blob/master/rlpx.md) based [LES](https://github.com/sila-chain/sila-devp2p/blob/master/caps/les.md) network.  This network is designed using a client/server architecture.  The LES network has a total capacity dictated by the number of "servers" on the network.  In order for this network to scale, the "server" capacity has to increase.  This also means that at any point in time the network has some total capacity which if exceeded will cause service degradation across the network.  Because of this the LES network is unreliable when operating near capacity.
+The term "light client" has historically referred to a client of the existing [SilaDevP2P](https://github.com/sila-chain/sila-devp2p/blob/main/rlpx.md) based [LES](https://github.com/sila-chain/sila-devp2p/blob/main/caps/les.md) network.  This network is designed using a client/server architecture.  The LES network has a total capacity dictated by the number of "servers" on the network.  In order for this network to scale, the "server" capacity has to increase.  This also means that at any point in time the network has some total capacity which if exceeded will cause service degradation across the network.  Because of this the LES network is unreliable when operating near capacity.
 
 
 ## Architecture
 
-The Portal Network is built upon the [Discover V5 protocol](https://github.com/sila-chain/sila-devp2p/blob/master/discv5/discv5.md) and operates over the UDP transport.
+The Portal Network is built upon the [Discover V5 protocol](https://github.com/sila-chain/sila-devp2p/blob/main/discv5/discv5.md) and operates over the UDP transport.
 
 The Discovery v5 protocol allows building custom sub-protocols via the use of the built in TALKREQ and TALKRESP message. All sub-protocols use the [Portal Wire Protocol](./portal-wire-protocol.md) which uses the TALKREQ and TALKRESP messages as transport. This wire protocol allows for quick development of the network layer of any new sub-protocol.
 
