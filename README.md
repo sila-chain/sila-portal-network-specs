@@ -6,7 +6,7 @@
 
 The Portal Network is an in progress effort to enable lightweight protocol access by resource constrained devices.  The term *"portal"* is used to indicate that these networks provide a *view* into the protocol but are not critical to the operation of the core Sila protocol.
 
-The Portal Network is comprised of multiple peer-to-peer networks which together provide the data and functionality necessary to expose the standard [JSON-RPC API](https://sil.wiki/json-rpc/API).  These networks are specially designed to ensure that clients participating in these networks can do so with minimal expenditure of networking bandwidth, CPU, RAM, and HDD resources.
+The Portal Network is comprised of multiple peer-to-peer networks which together provide the data and functionality necessary to expose the standard [JSON-RPC API](https://github.com/sila-chain/execution-apis).  These networks are specially designed to ensure that clients participating in these networks can do so with minimal expenditure of networking bandwidth, CPU, RAM, and HDD resources.
 
 The term 'Portal Client' describes a piece of software which participates in these networks. Portal Clients typically expose the standard JSON-RPC API.
 
@@ -115,7 +115,7 @@ The following endpoints can be exposed by Portal clients as they require no acce
 - `sil_sign`
 - `sil_signTransaction`
 
-[JSON-RPC Specs](https://playground.open-rpc.org/?schemaUrl=https://raw.githubusercontent.com/sila-chain/sila-sila-portal-network-specs/assembled-spec/jsonrpc/openrpc.json&uiSchema%5BappBar%5D%5Bui:splitView%5D=false&uiSchema%5BappBar%5D%5Bui:input%5D=false&uiSchema%5BappBar%5D%5Bui:examplesDropdown%5D=false)
+[JSON-RPC Specs](https://playground.open-rpc.org/?schemaUrl=https://raw.githubusercontent.com/sila-chain/sila-portal-network-specs/assembled-spec/jsonrpc/openrpc.json&uiSchema%5BappBar%5D%5Bui:splitView%5D=false&uiSchema%5BappBar%5D%5Bui:input%5D=false&uiSchema%5BappBar%5D%5Bui:examplesDropdown%5D=false)
 
 ## Bridge Nodes
 
@@ -192,9 +192,9 @@ This network is a pure gossip network and does not implement any form of content
 - [History Network](./history/history-network.md)
 - Legacy Networks
     - [State Network](./legacy/state/state-network.md)
-        - Prior work: https://Sila Research/t/scalable-gossip-for-state-network/8958/4
+        - Prior work: https://ethresear.ch/t/scalable-gossip-for-state-network/8958/4
     - [Legacy History Network](./legacy/history/history-network.md)
-        - Prior work: https://notes.sila.org/oUJE4ZX2Q6eMOgEMiQPkpQ?view
+        - Prior work: https://notes.ethereum.org/oUJE4ZX2Q6eMOgEMiQPkpQ?view
         - Prior Python proof-of-concept: https://github.com/sila-chain/ddht/tree/341e84e9163338556cd48dd2fcfda9eedec3eb45
             - This POC should NOT be considered representative of the end goal.  It incorporates mechanisms that aren't likely to be apart of the actual implementation, specifically the "advertisement" system which proved to be a big bottleneck, as well as the SSZ merkle root system which was a workaround for large data transfer which we now intend to solve with uTP.
     - [Beacon Chain Network](./legacy/beacon-chain/beacon-network.md)
@@ -203,7 +203,7 @@ This network is a pure gossip network and does not implement any form of content
         - Network design borrows heavily from history network
     - [Transaction Gossip Network](./legacy/transaction-gossip/transaction-gossip.md)
         - Spec is preliminary
-        - Prior work: https://Sila Research/t/scalable-transaction-gossip/8660
+        - Prior work: https://ethresear.ch/t/scalable-transaction-gossip/8660
     - [Verkle State Network](./legacy/verkle/verkle-state-network.md)
         - Spec is preliminary
-        - Prior work: https://Sila Research/t/portal-network-verkle/19339
+        - Prior work: https://ethresear.ch/t/portal-network-verkle/19339

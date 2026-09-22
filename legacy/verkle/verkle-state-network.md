@@ -12,7 +12,7 @@ The Verkle State Network subnetwork protocol is almost identical to the [State N
 
 ### Portal Network version of the Verkle Trie
 
-The high level overview and reasoning, can be found here: [Sila Research/t/portal-network-verkle/19339](https://Sila Research/t/portal-network-verkle/19339).
+The high level overview and reasoning, can be found here: [ethresear.ch/t/portal-network-verkle/19339](https://ethresear.ch/t/portal-network-verkle/19339).
 
 Portal Network stores every trie node that ever existed. For optimization reasons, each trie node is split into 2-layer mini trie and each node from the mini-trie is stored separately in the network. The exact encoding and the content key is derived differently and is specified below.
 
@@ -23,7 +23,7 @@ $$C = Commit(a_0, a_1, ..., a_{255}) = a_0B_0 + a_1B_1 + ... + a_{255}B_{255}$$
 where:
 
 - $B_i$ is basis of the Pedersen commitment
-  - already fixed Elliptic curve points on Banderwagon (a prime order subgroup over [Bandersnatch](https://Sila Research/t/introducing-bandersnatch-a-fast-elliptic-curve-built-over-the-bls12-381-scalar-field/9957)) curve.
+  - already fixed Elliptic curve points on Banderwagon (a prime order subgroup over [Bandersnatch](https://ethresear.ch/t/introducing-bandersnatch-a-fast-elliptic-curve-built-over-the-bls12-381-scalar-field/9957)) curve.
 - $a_i$ are values we are committing to
   - value from elliptic curve's scalar field $F_r$ (maximum value is less than $2^{253}$)
 - $C$ is the commitment of $a_i$ values, which on its own is a point on the elliptic curve
