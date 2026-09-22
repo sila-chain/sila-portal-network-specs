@@ -1,5 +1,8 @@
 name: Deploy JSON-RPC specification
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:

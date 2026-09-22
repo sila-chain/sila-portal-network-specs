@@ -57,7 +57,7 @@ Currently defined protocol identifiers:
 
 ## Nodes and Node IDs
 
-Nodes in the portal network are represented by their [SIP-778 Sila Node Record (ENR)](https://github.com/sila-chain/SIPs/blob/master/SIPS/sip-778.md) from the Discovery v5 network. A node's `node-id` is derived according to the node's identity scheme, which is specified in the node's ENR. A node's `node-id` represents its address in the DHT.  Node IDs are interchangeable between 32 byte identifiers and 256 bit integers.
+Nodes in the portal network are represented by their [SIP-778 Sila Node Record (ENR)](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-778.md) from the Discovery v5 network. A node's `node-id` is derived according to the node's identity scheme, which is specified in the node's ENR. A node's `node-id` represents its address in the DHT.  Node IDs are interchangeable between 32 byte identifiers and 256 bit integers.
 
 ## Content Keys and Content IDs
 

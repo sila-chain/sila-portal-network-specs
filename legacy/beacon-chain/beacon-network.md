@@ -6,19 +6,19 @@ This document is the specification for the Portal Network overlay network that s
 ## Overview
 
 A beacon chain light client could keep track of the chain of beacon block headers by performing Light client state updates
-following the light client [sync protocol](https://github.com/sila-chain/consensus-specs/blob/dev/specs/altair/light-client/sync-protocol.md).
-The [LightClientBootstrap](https://github.com/sila-chain/consensus-specs/blob/dev/specs/altair/light-client/sync-protocol.md#lightclientbootstrap) structure allow setting up a
-[LightClientStore](https://github.com/sila-chain/consensus-specs/blob/dev/specs/altair/light-client/sync-protocol.md#lightclientstore) with the initial sync committee and block header from a user-configured trusted block root.
+following the light client [sync protocol](https://github.com/sila-chain/consensus-specs/blob/main/specs/altair/light-client/sync-protocol.md).
+The [LightClientBootstrap](https://github.com/sila-chain/consensus-specs/blob/main/specs/altair/light-client/sync-protocol.md#lightclientbootstrap) structure allow setting up a
+[LightClientStore](https://github.com/sila-chain/consensus-specs/blob/main/specs/altair/light-client/sync-protocol.md#lightclientstore) with the initial sync committee and block header from a user-configured trusted block root.
 
-Once the client establishes a recent header, it could sync to other headers by processing objects of type [LightClientUpdate](https://github.com/sila-chain/consensus-specs/blob/dev/specs/altair/light-client/sync-protocol.md#lightclientupdate),
-[LightClientFinalityUpdate](https://github.com/sila-chain/consensus-specs/blob/dev/specs/altair/light-client/sync-protocol.md#lightclientfinalityupdate)
-and [LightClientOptimisticUpdate](https://github.com/sila-chain/consensus-specs/blob/dev/specs/altair/light-client/sync-protocol.md#lightclientoptimisticupdate).
+Once the client establishes a recent header, it could sync to other headers by processing objects of type [LightClientUpdate](https://github.com/sila-chain/consensus-specs/blob/main/specs/altair/light-client/sync-protocol.md#lightclientupdate),
+[LightClientFinalityUpdate](https://github.com/sila-chain/consensus-specs/blob/main/specs/altair/light-client/sync-protocol.md#lightclientfinalityupdate)
+and [LightClientOptimisticUpdate](https://github.com/sila-chain/consensus-specs/blob/main/specs/altair/light-client/sync-protocol.md#lightclientoptimisticupdate).
 These data types allow a client to stay up-to-date with the beacon chain.
 
 To verify canonicalness of an execution block header older than ~27 hours, we need the ongoing `BeaconState` accumulator (state.historical_summaries) which stores Merkle roots of recent history logs.
 
 The Beacon Chain network is a [Kademlia](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf) DHT that forms an overlay network on top of
-the [Discovery v5](https://github.com/sila-chain/sila-devp2p/blob/master/discv5/discv5-wire.md) network. The term *overlay network* means that the beacon chain network operates
+the [Discovery v5](https://github.com/sila-chain/sila-devp2p/blob/main/discv5/discv5-wire.md) network. The term *overlay network* means that the beacon chain network operates
 with its routing table independent of the base Discovery v5 routing table and uses the extensible `TALKREQ` and `TALKRESP` messages from the base Discovery v5 protocol for communication.
 
 The `TALKREQ` and `TALKRESP` protocol messages are application-level messages whose contents are specific to the Beacon Chain Light Client network. We specify these messages below.
@@ -35,7 +35,7 @@ The Beacon Chain network uses a modified version of the routing table structure 
 * LightClientOptimisticUpdate
 * HistoricalSummaries
 
-Light client data types are specified in light client [sync protocol](https://github.com/sila-chain/consensus-specs/blob/dev/specs/altair/light-client/sync-protocol.md#containers).
+Light client data types are specified in light client [sync protocol](https://github.com/sila-chain/consensus-specs/blob/main/specs/altair/light-client/sync-protocol.md#containers).
 
 #### Retrieval
 
@@ -91,7 +91,7 @@ The Beacon Chain Network uses the standard routing table structure from the Port
 
 Nodes running the beacon chain network MUST store and provide all beacon light
 client content for the range as is specified by the consensus light client
-specifications: https://github.com/sila-chain/consensus-specs/blob/dev/specs/altair/light-client/full-node.md#deriving-light-client-data
+specifications: https://github.com/sila-chain/consensus-specs/blob/main/specs/altair/light-client/full-node.md#deriving-light-client-data
 
 This means that data radius and the concept of closeness to data is not
 applicable for this content.
@@ -137,11 +137,11 @@ We use the following constants from the beacon chain specs which are used in the
 
 ```python
 # Maximum number of `LightClientUpdate` instances in a single request
-# Defined in https://github.com/sila-chain/consensus-specs/blob/dev/specs/altair/light-client/p2p-interface.md#configuration
+# Defined in https://github.com/sila-chain/consensus-specs/blob/main/specs/altair/light-client/p2p-interface.md#configuration
 MAX_REQUEST_LIGHT_CLIENT_UPDATES = 2**7  # = 128
 
 # Maximum number of `HistoricalSummary` records
-# Defined in https://github.com/sila-chain/consensus-specs/blob/dev/specs/phase0/beacon-chain.md#state-list-lengths
+# Defined in https://github.com/sila-chain/consensus-specs/blob/main/specs/phase0/beacon-chain.md#state-list-lengths
 HISTORICAL_ROOTS_LIMIT = 2**24  # = 16,777,216
 ```
 
@@ -235,7 +235,7 @@ HistoricalSummariesProof = Vector[Bytes32, floorlog2(HISTORICAL_SUMMARIES_GINDEX
 historical_summaries_with_proof = Container(
     epoch: uint64,
     # HistoricalSummary object is defined in consensus specs:
-    # https://github.com/sila-chain/consensus-specs/blob/dev/specs/capella/beacon-chain.md#historicalsummary.
+    # https://github.com/sila-chain/consensus-specs/blob/main/specs/capella/beacon-chain.md#historicalsummary.
     historical_summaries: List(HistoricalSummary, limit=HISTORICAL_ROOTS_LIMIT),
     proof: HistoricalSummariesProof
 )
@@ -277,4 +277,4 @@ Once a node is light client synced, it can verify a new `LightClientUpdate` and 
 
 ##### LightClientFinalityUpdate & LightClientOptimisticUpdate
 
-Validating `LightClientFinalityUpdate` and `LightClientOptimisticUpdate` follows the gossip domain(gossipsub) [consensus specs](https://github.com/sila-chain/consensus-specs/blob/dev/specs/altair/light-client/p2p-interface.md#the-gossip-domain-gossipsub).
+Validating `LightClientFinalityUpdate` and `LightClientOptimisticUpdate` follows the gossip domain(gossipsub) [consensus specs](https://github.com/sila-chain/consensus-specs/blob/main/specs/altair/light-client/p2p-interface.md#the-gossip-domain-gossipsub).

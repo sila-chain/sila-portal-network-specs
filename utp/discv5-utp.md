@@ -6,7 +6,7 @@ This document specifies an implementation of the [uTP](https://www.bittorrent.or
 
 ## Motivation
 
-The Discovery v5 protocol provides a simple and extensible UDP based protocol with robust encryption and resistance to deep packet inspection.  The use of UDP however imposes a tight limit on packet sizes. [Sub-protocols](https://github.com/sila-chain/sila-devp2p/blob/master/discv5/discv5-wire.md#talkreq-request-0x05) which wish to implement functionality that requires transmission of data that exceeds this packet size are forced to implement their own solutions for splitting these payloads across multiple UDP packets.  Packet loss makes this type of solution fragile.  A generic solution that can be reused across different Discovery v5 sub-protocols will improve the overall security and robustness of sub-protocols.
+The Discovery v5 protocol provides a simple and extensible UDP based protocol with robust encryption and resistance to deep packet inspection.  The use of UDP however imposes a tight limit on packet sizes. [Sub-protocols](https://github.com/sila-chain/sila-devp2p/blob/main/discv5/discv5-wire.md#talkreq-request-0x05) which wish to implement functionality that requires transmission of data that exceeds this packet size are forced to implement their own solutions for splitting these payloads across multiple UDP packets.  Packet loss makes this type of solution fragile.  A generic solution that can be reused across different Discovery v5 sub-protocols will improve the overall security and robustness of sub-protocols.
 
 
 ## Specification

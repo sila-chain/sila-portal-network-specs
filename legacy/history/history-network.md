@@ -4,7 +4,7 @@ This document is the specification for the sub-protocol that supports on-demand 
 
 ## Overview
 
-The chain history network is a [Kademlia](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf) DHT that uses the [Portal Wire Protocol](../portal-wire-protocol.md) to establish an overlay network on top of the [Discovery v5](https://github.com/sila-chain/sila-devp2p/blob/master/discv5/discv5-wire.md) protocol.
+The chain history network is a [Kademlia](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf) DHT that uses the [Portal Wire Protocol](../portal-wire-protocol.md) to establish an overlay network on top of the [Discovery v5](https://github.com/sila-chain/sila-devp2p/blob/main/discv5/discv5-wire.md) protocol.
 
 Execution chain history data consists of historical block headers, block bodies (transactions, ommers and withdrawals) and block receipts.
 
@@ -397,7 +397,7 @@ content_key             = selector + SSZ.serialize(block_body_key)
 
 Note 1: The type-specific transactions encoding might be different for future transaction types, but this content encoding is agnostic to the underlying transaction encodings.
 
-Note 2: The `list_of_uncle_headers` refers to the array of uncle headers [defined in the sila-devp2p spec](https://github.com/sila-chain/sila-devp2p/blob/master/caps/sil.md#block-encoding-and-validity).
+Note 2: The `list_of_uncle_headers` refers to the array of uncle headers [defined in the sila-devp2p spec](https://github.com/sila-chain/sila-devp2p/blob/main/caps/sil.md#block-encoding-and-validity).
 
 #### Receipts
 
@@ -472,12 +472,12 @@ def update_accumulator(accumulator: HistoricalHashesAccumulator, new_block_heade
 
 The `HistoricalHashesAccumulator` is fully build and frozen when the last block before TheMerge/SilaParis fork is added and the last incomplete `EpochRecord` its `hash_tree_root` is added to the `historical_epochs`.
 The network provides no mechanism for acquiring the fully build `HistoricalHashesAccumulator`.  Clients are encouraged to solve this however they choose, with the suggestion that they include a frozen copy of the accumulator at the point of TheMerge within their client code, and provide a mechanism for users to override this value if they so choose. The `hash_tree_root` of the `HistoricalHashesAccumulator` is
-defined in [SIP-7643](https://github.com/sila-chain/SIPs/blob/master/SIPS/sip-7643.md).
+defined in [SIP-7643](https://github.com/sila-chain/SIPs/blob/main/SIPS/sip-7643.md).
 
 #### BlockProofHistoricalHashesAccumulator
 
 The `BlockProofHistoricalHashesAccumulator` is a Merkle proof as specified in the
-[SSZ Merke proofs specification](https://github.com/sila-chain/consensus-specs/blob/dev/ssz/merkle-proofs.md#merkle-multiproofs).
+[SSZ Merke proofs specification](https://github.com/sila-chain/consensus-specs/blob/main/ssz/merkle-proofs.md#merkle-multiproofs).
 
 It is a Merkle proof for the `BlockHeader`'s block hash on the relevant
 `EpochRecord` object. The selected `EpochRecord` must be the one where
@@ -495,7 +495,7 @@ As the `HistoricalHashesAccumulator` only accounts for blocks pre-merge, this pr
 
 #### BlockProofHistoricalRoots
 
-The `BlockProofHistoricalRoots` is an SSZ container which holds two Merkle proofs as specified in the [SSZ Merke proofs specification](https://github.com/sila-chain/consensus-specs/blob/dev/ssz/merkle-proofs.md#merkle-multiproofs):
+The `BlockProofHistoricalRoots` is an SSZ container which holds two Merkle proofs as specified in the [SSZ Merke proofs specification](https://github.com/sila-chain/consensus-specs/blob/main/ssz/merkle-proofs.md#merkle-multiproofs):
 - `BeaconBlockProofHistoricalRoots`
 - `ExecutionBlockProof`
 
@@ -503,7 +503,7 @@ Additionally the SSZ container holds a `BeaconBlock` hash_tree_root and a slot.
 
 The chain of the two proofs allows for verifying that an EL `BlockHeader` is part of the canonical chain.
 The only requirement is having access to the beacon chain `historical_roots`.
-The `historical_roots` is a [`BeaconState` field](https://github.com/sila-chain/consensus-specs/blob/dev/specs/capella/beacon-chain.md#beaconstate) that is frozen since the Capella fork. The `BlockProofHistoricalRoots` MUST be used to verify blocks from TheMerge/SilaParis until the Capella fork.
+The `historical_roots` is a [`BeaconState` field](https://github.com/sila-chain/consensus-specs/blob/main/specs/capella/beacon-chain.md#beaconstate) that is frozen since the Capella fork. The `BlockProofHistoricalRoots` MUST be used to verify blocks from TheMerge/SilaParis until the Capella fork.
 
 The Portal network does not provide a mechanism to acquire the `historical_roots` over the network. Clients are encouraged to solve this however they choose, with the suggestion that they can include a frozen copy of the `historical_roots` within their client code, and provide a mechanism for users to override this value if they choose so.
 
@@ -541,14 +541,14 @@ flowchart LR
 
 #### BlockProofHistoricalSummaries
 
-The `BlockProofHistoricalSummaries` is an SSZ container which holds two Merkle proofs as specified in the [SSZ Merke proofs specification](https://github.com/sila-chain/consensus-specs/blob/dev/ssz/merkle-proofs.md#merkle-multiproofs):
+The `BlockProofHistoricalSummaries` is an SSZ container which holds two Merkle proofs as specified in the [SSZ Merke proofs specification](https://github.com/sila-chain/consensus-specs/blob/main/ssz/merkle-proofs.md#merkle-multiproofs):
 - `BeaconBlockProofHistoricalSummaries`
 - `ExecutionBlockProof`
 
 Additionally the SSZ container holds a `BeaconBlock` hash_tree_root and a slot.
 
 This chain of two proofs allows for verifying that an EL `BlockHeader` is part of the canonical chain. The only requirement is having access to the beacon chain `historical_summaries`.
-The `historical_summaries` is a [`BeaconState` field](https://github.com/sila-chain/consensus-specs/blob/dev/specs/capella/beacon-chain.md#beaconstate) that was introduced since the Capella fork. It gets updated every period (8192 slots). The `BlockProofHistoricalSummaries` MUST be used to verify blocks from the Capella fork onwards.
+The `historical_summaries` is a [`BeaconState` field](https://github.com/sila-chain/consensus-specs/blob/main/specs/capella/beacon-chain.md#beaconstate) that was introduced since the Capella fork. It gets updated every period (8192 slots). The `BlockProofHistoricalSummaries` MUST be used to verify blocks from the Capella fork onwards.
 
 The `historical_summaries` can be taken from the CL `BeaconState` (e.g. via [Beacon API](https://sila.github.io/beacon-APIs/#/Debug/getStateV2)) or the Portal beacon network can be used to [provide access](../beacon-chain/beacon-network.md#historicalsummaries) to an up to date `historical_summaries` object."
 

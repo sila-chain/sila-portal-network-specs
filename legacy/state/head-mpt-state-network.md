@@ -17,7 +17,7 @@ While similar to the [Execution State network](state-network.md), it has some un
 The Execution Head-MPT State Network is a
 [Kademlia](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf) DHT that uses the
 [Portal Wire Protocol](../portal-wire-protocol.md) to establish an overlay network on top of the
-[Discovery v5](https://github.com/sila-chain/sila-devp2p/blob/master/discv5/discv5-wire.md) protocol.
+[Discovery v5](https://github.com/sila-chain/sila-devp2p/blob/main/discv5/discv5-wire.md) protocol.
 
 Nodes are responsible for storing fixed state subtree, across all 256 recent blocks.
 
