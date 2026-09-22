@@ -4,7 +4,7 @@ This document is the specification for the sub-protocol that supports on-demand 
 
 ## Overview
 
-The execution state network is a [Kademlia](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf) DHT that uses the [Portal Wire Protocol](../portal-wire-protocol.md) to establish an overlay network on top of the [Discovery v5](https://github.com/sila-chain/sila-devp2p/blob/master/discv5/discv5-wire.md) protocol.
+The execution state network is a [Kademlia](https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf) DHT that uses the [Portal Wire Protocol](../portal-wire-protocol.md) to establish an overlay network on top of the [Discovery v5](https://github.com/sila-chain/sila-devp2p/blob/main/discv5/discv5-wire.md) protocol.
 
 State data from the execution chain consists of all account data from the main storage trie, all contract storage data from all of the individual contract storage tries, and the individual bytecodes for all contracts across all historical state roots.  This is traditionally referred to as an "archive node".
 
